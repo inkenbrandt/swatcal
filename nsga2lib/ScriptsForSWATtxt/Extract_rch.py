@@ -113,7 +113,7 @@ f=open(os.path.join(os.getcwd(),"model.out"),"w")
 f.writelines(mlines)
 f.close()
 
-print "Excraction is done for outlets: " , outlets
+print("Extraction is done for outlets: " , outlets)
 
 
 
