@@ -21,4 +21,4 @@ shutil.copy2(nsga2sourcePath+r'/modelpara.beh', glueoutPaht+r'/modelpara.beh')
 shutil.copy2(nsga2sourcePath+r'/modelpara.beh', glueoutPaht+r'/modelpara.out')
 shutil.copy2(nsga2sourcePath+r'/modelres.beh', glueoutPaht+r'/modelres.beh')
 
-print 'GLUE files successfully copied into SWAT-CUP GLUE directories.'
+print('GLUE files successfully copied into SWAT-CUP GLUE directories.')

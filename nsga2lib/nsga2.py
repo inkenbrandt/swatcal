@@ -10,7 +10,7 @@
 # Licence:     MIT
 #-------------------------------------------------------------------------------
 
-'''
+"""
 P.S: Old population (old_pop_ptr) is a parent population, new population (new_pop_ptr)
 is a child population and mate population (mate_pop_ptr) is an intermediate population between
 transactions. General process starts with an old population which goes through selection to
@@ -19,10 +19,10 @@ new population goes through mutation to get final new population. Then, new and 
 go through elitism, crowding distances, nondominated sorting to create a mate population.
 This mate population then copied as an old population for the next generation. The same porcess
 repeats for every generation.
-'''
+"""
 
 import copy, sys, numpy, os, random, shutil
-from nsga2lib import nsga2utilities, SWATutilities
+from . import nsga2utilities, SWATutilities
 
 class nsga2:
     def __init__(self,SWATtxtinoutFolderDirectory):
@@ -239,18 +239,6 @@ class nsga2:
         self.new_pop_ptr = copy.deepcopy(self.mate_pop_ptr); 
         self.old_pop_ptr = copy.deepcopy(self.new_pop_ptr); #Parent Population
     #-------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

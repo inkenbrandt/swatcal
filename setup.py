@@ -5,24 +5,24 @@ def readme():
     with open('README.rst') as f:
         return f.read()
     
-setup(name='nsga2lib',
-      version='2.2',
+setup(name='swatcal',
+      version='0.2.2',
       description='Libraries for performing nsga2 calibration.',
       long_description=readme(),
       classifiers=[
         "Programming Language :: Python",
         "License :: OSI Approved :: MIT License",
         "Topic :: Software Development :: Libraries :: Python Modules",
-        "Development Status :: Beta"
+        "Development Status :: Alpha"
         "Intended Audience :: Science/Research",
         "Natural Language :: English",     
       ],
-      url='https://github.com/mehmetbercan/NSGA-II_Python_for_SWAT_model',
+      url='https://github.com/inkenbrandt/swatcal',
       author='Mehmet B. Ercan',
       author_email='ercanm@email.sc.edu',
       license='MIT',
       packages=['nsga2lib'],
-      install_requires=['nsga2lib','numpy'],
+      install_requires=['numpy','spotpy'],
 	  data_files   = [(os.path.join('nsga2lib','ScriptsForSWATtxt'),[os.path.join('nsga2lib','ScriptsForSWATtxt','Extract_rch.py'),
 								  os.path.join('nsga2lib','ScriptsForSWATtxt','SWAT_ParameterEdit.py'),
 								  os.path.join('nsga2lib','ScriptsForSWATtxt','Makefile'),
