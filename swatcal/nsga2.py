@@ -45,13 +45,31 @@ class nsga2:
 
         elif "win" in sys.platform.lower():
             print("Operating System is {0}".format(sys.platform))
-            shutil.copy2(os.path.join(libpath, "ScriptsForSWATtxt", "nsga2_mid.cmd"), SWATtxtinoutFolderDirectory)
+            pypath = os.path.abspath(os.path.join(os.path.dirname(nsga2utilities.__file__), '..','..','..'))
+            f = open('{:}/nsga2_mid.cmd'.format(SWATtxtinoutFolderDirectory), 'w')
+            f.write(
+                'cmd /C ""{:}/python.exe" "{:}/SWAT_ParameterEdit.py"\n'.format(pypath, SWATtxtinoutFolderDirectory))
+            f.write('swat.exe\n')
+            f.write(
+                'cmd /C ""{:}/python.exe" "{:}/SWAT_ParameterEdit.py"\n'.format(pypath, SWATtxtinoutFolderDirectory))
+            f.close()
             shutil.copy2(os.path.join(libpath, "ScriptsForSWATtxt", "swat.exe"), SWATtxtinoutFolderDirectory)
 
         # goes with windows for now
         else:
-            shutil.copy2(os.path.join(libpath, "ScriptsForSWATtxt", "nsga2_mid.cmd"), SWATtxtinoutFolderDirectory)
+            f = open('{:}/nsga2_mid.cmd'.format(SWATtxtinoutFolderDirectory), 'w')
+            f.write(
+                'cmd /C ""{:}/python.exe" "{:}/SWAT_ParameterEdit.py"\n'.format(pypath, SWATtxtinoutFolderDirectory))
+            f.write('swat.exe\n')
+            f.write(
+                'cmd /C ""{:}/python.exe" "{:}/SWAT_ParameterEdit.py"\n'.format(pypath, SWATtxtinoutFolderDirectory))
+            f.close()
             shutil.copy2(os.path.join(libpath, "ScriptsForSWATtxt", "swat.exe"), SWATtxtinoutFolderDirectory)
+            shutil.copy2(os.path.join(libpath, "ScriptsForSWATtxt", "swat.exe"), SWATtxtinoutFolderDirectory)
+
+
+
+
 
         nsga2def = SWATtxtinoutFolderDirectory + "/NSGA2.IN/nsga2.def"
         nsga2pardef = SWATtxtinoutFolderDirectory + "/NSGA2.IN/nsga2_par.def"
