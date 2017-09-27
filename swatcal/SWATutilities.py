@@ -1,54 +1,55 @@
 # Runs SWAT model with all solutions and calculate objective functions
 import numpy, os, math, sys
 
-
-# -------------------------------------------------------------------------------
-# This functions will be used when ncons != 0 (number of Constraints is not zero).
-# /*This also demarkates the different Pareto Fronts*/
-def rankcon(population):  # uses "indcmp3(ptr1,ptr2)" function
+def rankcon(population):
+    """
+    This functions will be used when ncons != 0 (number of Constraints is not zero).
+    This also demarkates the different Pareto Fronts
+    uses "indcmp3(ptr1,ptr2)" function
+    """
     # /*---* RANKING *---*/
     # /*Initializing the ranks to zero*/
-    rnk = 0;  # /*rank*/
+    rnk = 0  # /*rank*/
 
-    nondom = 0;  # /*no of non dominated members*/
-    maxrank1 = 0;  # /*Max rank of the population*/
+    nondom = 0  # /*no of non dominated members*/
+    maxrank1 = 0  # /*Max rank of the population*/
 
     # /*Initializing all the flags to 2*/
     popsize = len(population["ind"])
-    j = 0;
+    j = 0
     while j < popsize:
-        population["ind"][j]["flag"] = 2;
+        population["ind"][j]["flag"] = 2
         j += 1
 
-    k = 0;
+    k = 0
     while k < popsize:
-        q = 0;
-        j = 0;
+        q = 0
+        j = 0
         while j < popsize:
             if (population["ind"][j]["flag"] != 1): break;
             j += 1
             # /*Break if all the individuals are assigned a rank*/
         if (j == popsize): break;
 
-        rnk = rnk + 1;
+        rnk = rnk + 1
 
-        j = 0;
+        j = 0
         while j < popsize:
             if (population["ind"][j]["flag"] == 0): population["ind"][j]["flag"] = 2;
             j += 1
             # /*Set the flag of dominated individuals to 2*/
 
-        i = 0;
+        i = 0
         while i < popsize:
             if (population["ind"][i]["flag"] != 1 and population["ind"][i]["flag"] != 0):
-                j = 0;
+                j = 0
                 while j < popsize:
                     # /*Select the other individual which has not got a rank*/
                     if (i != j):
                         if (population["ind"][j]["flag"] != 1):
                             # /*Compare the two individuals for
                             # fitness*/
-                            val = indcmp3(population, i, j);  # /*value obtained after comparing two individuals*/
+                            val = indcmp3(population, i, j)  # /*value obtained after comparing two individuals*/
 
                             # /*VAL = 2 for dominated individual
                             # which rank to be given*/
@@ -59,41 +60,41 @@ def rankcon(population):  # uses "indcmp3(ptr1,ptr2)" function
                             # /*VAL = 3 for non comparable
                             # individuals*/
                             if (val == 2):
-                                population["ind"][i]["flag"] = 0;
+                                population["ind"][i]["flag"] = 0
                                 # /* individual 1 is dominated */
-                                break;
+                                break
                             if (val == 1):
-                                population["ind"][j]["flag"] = 0;
+                                population["ind"][j]["flag"] = 0
                                 # /* individual 2 is dominated */
                             if (val == 3):
-                                nondom += 1;
+                                nondom += 1
                                 # /* individual 1 & 2 are
                                 # non dominated */
                                 if (population["ind"][j]["flag"] != 0):
-                                    population["ind"][j]["flag"] = 3;
+                                    population["ind"][j]["flag"] = 3
 
                     j += 1
                 # /*loop over j ends*/
                 if (j == popsize):
                     # /*Assign the rank and set the flag*/
-                    population["ind"][i]["rank"] = rnk;
-                    population["ind"][i]["flag"] = 1;
+                    population["ind"][i]["rank"] = rnk
+                    population["ind"][i]["flag"] = 1
                     q += 1
             i += 1
             # /*Loop over flag check ends*/
         k += 1
         # /*Loop over i ends */
-        population["rankno"][rnk - 1] = q;
-    maxrank1 = rnk;
+        population["rankno"][rnk - 1] = q
+    maxrank1 = rnk
 
     # /*     Find Max Rank of the population    */
     i = 0;
     while i < popsize:
-        rnk = population["ind"][i]["rank"];
+        rnk = population["ind"][i]["rank"]
         if (rnk > maxrank1): maxrank1 = rnk;
         i += 1
 
-    population["maxrank"] = maxrank1;
+    population["maxrank"] = maxrank1
 
     return
 
@@ -104,7 +105,7 @@ def indcmp3(population, ii, jj):
     nfunc = len(population["ind"][0]["fitness"])
     fit1 = numpy.zeros(nfunc, float)
     fit2 = numpy.zeros(nfunc, float)
-    i = 0;
+    i = 0
     while i < nfunc:
         fit1[i] = population["ind"][ii]["fitness"][
             i]  # *ptr1++; population["ind_ptr"] = population["ind"][i];ptr1 = population["ind_ptr"]["fitness"][0];
@@ -112,43 +113,40 @@ def indcmp3(population, ii, jj):
             i]  # *ptr2++;population["ind_ptr"] = population["ind"][j];ptr2 = population["ind_ptr"]["fitness"][0];
         i += 1
 
-    m = 0;
-    n = 0;
+    m = 0
+    n = 0
     while (m < nfunc and fit1[m] <= fit2[m]):
         if (fit1[m] == fit2[m]): n += 1;
-        m += 1;
+        m += 1
 
     value = 0
     if (m == nfunc):
         if (n == nfunc):
-            value = 3;
+            value = 3
         else:
-            value = 1;  # /*value = 1 for dominationg*/
+            value = 1  # /*value = 1 for dominationg*/
     else:
-        m = 0;
-        n = 0;
+        m = 0
+        n = 0
         while (m < nfunc and fit1[m] >= fit2[m]):
             if (fit1[m] == fit2[m]): n += 1;
-            m += 1;
+            m += 1
         if (m == nfunc):
             if (n != nfunc):
-                value = 2;  # /*value =  2 for dominated */
+                value = 2  # /*value =  2 for dominated */
             else:
-                value = 3;
+                value = 3
         else:
-            value = 3;  # /*value = 3 for incomparable*/
+            value = 3  # /*value = 3 for incomparable*/
 
-    return value;
-
-
-# -------------------------------------------------------------------------------
+    return value
 
 
-
-# -------------------------------------------------------------------------------
-##Nash-Sutcliffe model efficiency coefficient
 def Nash_Sutcliffe(SimulatedStreamFlow, ObservedStreamFlow):
-    '''(SimulatedStreamFlow, ObservedStreamFlow)'''
+    """
+    (SimulatedStreamFlow, ObservedStreamFlow)
+    Nash-Sutcliffe model efficiency coefficient
+    """
     x = SimulatedStreamFlow
     y = ObservedStreamFlow
     A = 0.0  # dominator
@@ -160,13 +158,15 @@ def Nash_Sutcliffe(SimulatedStreamFlow, ObservedStreamFlow):
     for i in range(0, len(y)):
         A = A + math.pow((y[i] - x[i]), 2)
         B = B + math.pow((y[i] - average), 2)
-    E = 1 - (A / B)  # Nash-Sutcliffe model eficiency coefficient
+    E = 1 - (A / B)  # Nash-Sutcliffe model efficiency coefficient
     return E
 
 
-##Logaritmic Nash-Sutcliffe model efficiency coefficient
 def Log_Nash_Sutcliffe(SimulatedStreamFlow, ObservedStreamFlow):
-    '''(SimulatedStreamFlow, ObservedStreamFlow)'''
+    """
+    (SimulatedStreamFlow, ObservedStreamFlow)
+    Logarithmic Nash-Sutcliffe model efficiency coefficient
+    """
     x = SimulatedStreamFlow
     y = ObservedStreamFlow
     A = 0.0  # dominator
@@ -188,9 +188,10 @@ def Log_Nash_Sutcliffe(SimulatedStreamFlow, ObservedStreamFlow):
     return E
 
 
-# Define definition for Percent Bias model efficiency coefficient---used up in the class
+
 def PercentBias(SimulatedStreamFlow, ObservedStreamFlow):
-    '''(SimulatedStreamFlow, ObservedStreamFlow)'''
+    """(SimulatedStreamFlow, ObservedStreamFlow)
+    Define definition for Percent Bias model efficiency coefficient---used up in the class"""
     x = SimulatedStreamFlow
     y = ObservedStreamFlow
     A = 0.0  # dominator
@@ -198,11 +199,22 @@ def PercentBias(SimulatedStreamFlow, ObservedStreamFlow):
     for i in range(0, len(y)):
         A = A + (y[i] - x[i])
         B = B + y[i]
-    PB = 100.0 * (A / B)  # Percent Bias model eficiency coefficient
+    PB = 100.0 * (A / B)  # Percent Bias model efficiency coefficient
     return PB
 
 
 def CalculateObjectiveFunctions(population, Outlet_Obsdata, FuncOpt, FuncOptAvr, parname, generation, SWATdir):
+    """
+
+    :param population:
+    :param Outlet_Obsdata:
+    :param FuncOpt:
+    :param FuncOptAvr:
+    :param parname:
+    :param generation:
+    :param SWATdir:
+    :return:
+    """
     os.chdir(SWATdir)
     # /*Initializing the max rank to zero*/
     population["maxrank"] = 0
@@ -316,10 +328,8 @@ def CalculateObjectiveFunctions(population, Outlet_Obsdata, FuncOpt, FuncOptAvr,
             newobjectivefuncs = objectivefuncs
         # Add objective functions to population
         population["ind"][i]['fitness'] = newobjectivefuncs
-    # &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
-    # /*---------------------------* RANKING *------------------------------*/
-    rankcon(population);
-    return;
+    rankcon(population)
+    return
 
-# -------------------------------------------------------------------------------
+
