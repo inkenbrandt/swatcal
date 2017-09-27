@@ -57,6 +57,7 @@ class nsga2:
 
         # goes with windows for now
         else:
+            pypath = os.path.abspath(os.path.join(os.path.dirname(nsga2utilities.__file__), '..','..','..'))
             f = open('{:}/nsga2_mid.cmd'.format(SWATtxtinoutFolderDirectory), 'w')
             f.write(
                 'cmd /C ""{:}/python.exe" "{:}/SWAT_ParameterEdit.py"\n'.format(pypath, SWATtxtinoutFolderDirectory))
