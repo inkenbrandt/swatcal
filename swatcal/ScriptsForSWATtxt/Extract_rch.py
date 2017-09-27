@@ -1,6 +1,6 @@
 # Extract output.rch similar to observed_rch.txt struction in nsga2.in folder
 import sys, datetime, os
-
+import codecs
 
 # ----------------- Class ------------------
 class SWAT:
@@ -44,7 +44,7 @@ class SWAT:
         if FCenddate < ED:
             sys.exit("Error: The end date in observed_rch.txt is later than SWAT run time span.")
         # Read output.rch to get outflow
-        SWAT = open(os.path.join(SWAT_Directory, "output.rch"), "r")
+        SWAT = codecs.open(os.path.join(SWAT_Directory, "output.rch"), "r", encoding='utf8', errors='ignore')
         SWATlines = SWAT.readlines()
         Date_Value = {}
         date = FCbegindate
@@ -79,7 +79,7 @@ def DictionaryofDate_valuetoArrays(Date_value):
 
 
 # Read 'observed_rch.txt'
-f = open(os.path.join(os.getcwd(), "NSGA2.IN", "observed_rch.txt"), "r", encoding='utf8')
+f = codecs.open(os.path.join(os.getcwd(), "NSGA2.IN", "observed_rch.txt"), "r", encoding='utf8',errors='ignore')
 lines = f.readlines()
 
 # Read Observed Streamflow
