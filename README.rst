@@ -1,7 +1,7 @@
 #################################
 NSGA-II Calibration for SWAT Watershed Model
 #################################
-swatcal 0.3.0
+swatcal 0.3.1
 
 * Created by Dr. Mehmet B. Ercan
 * Modified by Paul Inkenbrandt
