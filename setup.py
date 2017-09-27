@@ -17,7 +17,7 @@ except:
     pass
 
 setup(name='swatcal',
-      version='0.2.2',
+      version='0.3.0',
       description='Libraries for performing nsga2 calibration.',
       long_description='Calibration tools for SWAT models',
       classifiers=[
