@@ -3,9 +3,9 @@ NSGA-II Calibration for SWAT Watershed Model
 #################################
 swatcal 0.3.0
 
-Created by Dr. Mehmet B. Ercan
-Modified by Paul Inkenbrandt
-For original scripts, see: https://github.com/mehmetbercan/NSGA-II_Python_for_SWAT_model
+* Created by Dr. Mehmet B. Ercan
+* Modified by Paul Inkenbrandt
+* For original scripts, see: https://github.com/mehmetbercan/NSGA-II_Python_for_SWAT_model
 
 ************
 Introduction
