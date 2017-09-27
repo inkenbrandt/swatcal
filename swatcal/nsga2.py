@@ -70,8 +70,6 @@ class nsga2:
 
 
 
-
-
         nsga2def = SWATtxtinoutFolderDirectory + "/NSGA2.IN/nsga2.def"
         nsga2pardef = SWATtxtinoutFolderDirectory + "/NSGA2.IN/nsga2_par.def"
         observed_rch = SWATtxtinoutFolderDirectory + "/NSGA2.IN/observed_rch.txt"
@@ -102,8 +100,7 @@ class nsga2:
             nchrom = i  # no. of binary-coded variables (--number of parameters--)
 
         if nchrom <= 0:
-            sys.exit(
-                "ERROR: 'nsga2_par.def' files does not have prameters (or paramters doesn't start with 'a','r' or 'v')")
+            sys.exit("ERROR: 'nsga2_par.def' files does not have prameters (or paramters doesn't start with 'a','r' or 'v')")
 
         chrom = 0  # Chromosome length (Total Sum of the bit value)
         vlen, lim_b, parname = [], [], []
@@ -185,7 +182,7 @@ class nsga2:
 
         # Define the the initital population
         if self.ReadMFrmOut == 1:  # Read Last population from output.out
-            # Read outputout
+            # Read output.out
             f = open(self.SWATdir + "/NSGA2.OUT/output.out", "r")
             lines = f.readlines()
             prmtrno = int(lines[5].split(")")[0].split("binary")[1])  # Number of parameters (binary)
