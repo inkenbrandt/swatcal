@@ -57,7 +57,6 @@ def SWATparameterChange(TheFileDir, TheValue, IMET, TheLineNo, TheStartSpaceNo, 
     File.close()
 
 
-# -------------------------------------------------------------------------------------------------
 
 # Read model.in
 par_ValImet = {}

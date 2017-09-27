@@ -19,7 +19,7 @@ go through elitism, crowding distances, nondominated sorting to create a mate po
 This mate population then copied as an old population for the next generation. The same porcess
 repeats for every generation.
 """
-
+from __future__ import absolute_import, division, print_function, unicode_literals
 import copy, sys, numpy, os, random, shutil
 from . import nsga2utilities, SWATutilities
 
@@ -75,7 +75,7 @@ class nsga2:
         observed_rch = SWATtxtinoutFolderDirectory + "/NSGA2.IN/observed_rch.txt"
 
         # Read ('nsga2.def') NSGA-II binary options input
-        f = open(nsga2def, "r")
+        f = open(nsga2def, "r", encoding = 'utf8')
         lines = f.readlines()
         popsize = int(lines[1].split()[1])  # Population size (an even no.)
         ngener = int(lines[2].split()[1])  # the no.of generations
@@ -91,7 +91,7 @@ class nsga2:
         f.close()
 
         # Read 'nsga2_par.def'
-        f = open(nsga2pardef, "r")
+        f = open(nsga2pardef, "r", encoding = 'utf8')
         lines = f.readlines()
         nchrom = 0
         for i in range(1, len(lines)):
@@ -114,7 +114,7 @@ class nsga2:
         f.close()
 
         # Read 'observed_rch.txt'
-        f = open(observed_rch, "r")
+        f = open(observed_rch, "r", encoding = 'utf8')
         lines = f.readlines()
 
         # Read Observed Streamflow
@@ -183,7 +183,7 @@ class nsga2:
         # Define the the initital population
         if self.ReadMFrmOut == 1:  # Read Last population from output.out
             # Read output.out
-            f = open(self.SWATdir + "/NSGA2.OUT/output.out", "r")
+            f = open(self.SWATdir + "/NSGA2.OUT/output.out", "r", encoding="utf8")
             lines = f.readlines()
             prmtrno = int(lines[5].split(")")[0].split("binary")[1])  # Number of parameters (binary)
 
