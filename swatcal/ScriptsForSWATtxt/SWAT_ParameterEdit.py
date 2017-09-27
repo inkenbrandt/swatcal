@@ -10,7 +10,7 @@ def SWATparameterChange(TheFileDir, TheValue, IMET, TheLineNo, TheStartSpaceNo, 
     """Changes SWAT input files based on imet and parameter value"""
 
     # Read, save in a library, delete
-    File = open(TheFileDir, "r", encoding='utf8')  # open the file
+    File = open(TheFileDir, "r", encoding='iso-8859-1')  # open the file
     lines = File.readlines()  # Read lines
     Lines = {}
     for i in range(1, len(lines) + 1):
@@ -21,7 +21,7 @@ def SWATparameterChange(TheFileDir, TheValue, IMET, TheLineNo, TheStartSpaceNo, 
     # get the original value
     if IMET == 2 or IMET == 3 or multiopt == "multi":
         originalfile = DefaultDir + "/" + TheFileDir.split("/")[len(TheFileDir.split("/")) - 1]
-        File = open(originalfile, "r", encoding='utf8')  # open the file
+        File = open(originalfile, "r", encoding='iso-8859-1')  # open the file
         lines = File.readlines()  # Read lines
         oLines = {}
         for i in range(1, len(lines) + 1):
@@ -60,7 +60,7 @@ def SWATparameterChange(TheFileDir, TheValue, IMET, TheLineNo, TheStartSpaceNo, 
 
 # Read model.in
 par_ValImet = {}
-f = open(modelin, "r", encoding='utf8')
+f = open(modelin, "r", encoding='iso-8859-1')
 lines = f.readlines()
 for line in lines:
     if line == "\n": break
