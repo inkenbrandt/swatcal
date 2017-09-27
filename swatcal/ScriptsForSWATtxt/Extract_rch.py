@@ -7,7 +7,7 @@ class SWAT:
     def __init__(self, SWATtxtinoutFolderDirectory):
         self.__dir = SWATtxtinoutFolderDirectory
         # Read file. cio to get begining date and end date
-        SWAT = open(os.path.join(SWATtxtinoutFolderDirectory, "file.cio"), "r")
+        SWAT = codecs.open(os.path.join(SWATtxtinoutFolderDirectory, "file.cio"), "r", encoding="utf-8")
         lines = SWAT.readlines()
         skipyear = int(lines[59][12:16])
         FCbeginyear = int(lines[8][12:16]) + skipyear  # begining year
@@ -44,7 +44,7 @@ class SWAT:
         if FCenddate < ED:
             sys.exit("Error: The end date in observed_rch.txt is later than SWAT run time span.")
         # Read output.rch to get outflow
-        SWAT = codecs.open(os.path.join(SWAT_Directory, "output.rch"), "r", encoding='utf8', errors='ignore')
+        SWAT = codecs.open(os.path.join(SWAT_Directory, "output.rch"), "r", encoding='utf-8')
         SWATlines = SWAT.readlines()
         Date_Value = {}
         date = FCbegindate
@@ -79,7 +79,7 @@ def DictionaryofDate_valuetoArrays(Date_value):
 
 
 # Read 'observed_rch.txt'
-f = codecs.open(os.path.join(os.getcwd(), "NSGA2.IN", "observed_rch.txt"), "r", encoding='utf8',errors='ignore')
+f = codecs.open(os.path.join(os.getcwd(), "NSGA2.IN", "observed_rch.txt"), "r", encoding='utf-8')
 lines = f.readlines()
 
 # Read Observed Streamflow
@@ -118,7 +118,7 @@ for outlet in outlets:
         i = int(i1) - 1
         mlines += str(i + 1) + "    " + str(simstrflw[i]) + "\n"
 # Print the model.out file
-f = open(os.path.join(os.getcwd(), "model.out"), "w")
+f = codecs.open(os.path.join(os.getcwd(), "model.out"), "w")
 f.writelines(mlines)
 f.close()
 

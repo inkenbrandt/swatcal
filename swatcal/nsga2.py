@@ -46,7 +46,7 @@ class nsga2:
         elif "win" in sys.platform.lower():
             print("Operating System is {0}".format(sys.platform))
             pypath = os.path.abspath(os.path.join(os.path.dirname(nsga2utilities.__file__), '..','..','..'))
-            f = open('{:}/nsga2_mid.cmd'.format(SWATtxtinoutFolderDirectory), 'w')
+            f = codecs.open('{:}/nsga2_mid.cmd'.format(SWATtxtinoutFolderDirectory), 'w', encoding = 'utf-8')
             f.write(
                 'cmd /C ""{:}/python.exe" "{:}/SWAT_ParameterEdit.py"\n'.format(pypath, SWATtxtinoutFolderDirectory))
             f.write('swat.exe\n')
@@ -58,7 +58,7 @@ class nsga2:
         # goes with windows for now
         else:
             pypath = os.path.abspath(os.path.join(os.path.dirname(nsga2utilities.__file__), '..','..','..'))
-            f = open('{:}/nsga2_mid.cmd'.format(SWATtxtinoutFolderDirectory), 'w')
+            f = codecs.open('{:}/nsga2_mid.cmd'.format(SWATtxtinoutFolderDirectory), 'w', encoding = 'utf-8')
             f.write(
                 'cmd /C ""{:}/python.exe" "{:}/SWAT_ParameterEdit.py"\n'.format(pypath, SWATtxtinoutFolderDirectory))
             f.write('swat.exe\n')
@@ -75,7 +75,7 @@ class nsga2:
         observed_rch = SWATtxtinoutFolderDirectory + "/NSGA2.IN/observed_rch.txt"
 
         # Read ('nsga2.def') NSGA-II binary options input
-        f = codecs.open(nsga2def, "r", encoding = 'utf8', errors='ignore')
+        f = codecs.open(nsga2def, "r", encoding = 'utf-8')
         lines = f.readlines()
         popsize = int(lines[1].split()[1])  # Population size (an even no.)
         ngener = int(lines[2].split()[1])  # the no.of generations
@@ -91,7 +91,7 @@ class nsga2:
         f.close()
 
         # Read 'nsga2_par.def'
-        f = codecs.open(nsga2pardef, "r", encoding = 'utf8', errors='ignore')
+        f = codecs.open(nsga2pardef, "r", encoding = 'utf-8')
         lines = f.readlines()
         nchrom = 0
         for i in range(1, len(lines)):
@@ -114,7 +114,7 @@ class nsga2:
         f.close()
 
         # Read 'observed_rch.txt'
-        f = codecs.open(observed_rch, "r", encoding = 'utf8', errors='ignore')
+        f = codecs.open(observed_rch, "r", encoding = 'utf-8')
         lines = f.readlines()
 
         # Read Observed Streamflow
@@ -183,7 +183,7 @@ class nsga2:
         # Define the the initital population
         if self.ReadMFrmOut == 1:  # Read Last population from output.out
             # Read output.out
-            f = codecs.open(self.SWATdir + "/NSGA2.OUT/output.out", "r", encoding = 'utf8', errors='ignore')
+            f = codecs.open(self.SWATdir + "/NSGA2.OUT/output.out", "r", encoding = 'utf-8')
             lines = f.readlines()
             prmtrno = int(lines[5].split(")")[0].split("binary")[1])  # Number of parameters (binary)
 
