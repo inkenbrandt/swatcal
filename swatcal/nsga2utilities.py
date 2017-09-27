@@ -13,32 +13,32 @@ def report(pop1_ptr, pop2_ptr, igen, ngen, SWATdir, ncross, nmut):
     outputfile = open(outputoutfile, "a")
     if (igen == ngen):
         plotfile = open(plotoutfile, "w")
-        plotfile.writelines("# Feasible and Non-dominated Objective Vector\n");
+        plotfile.writelines("# Feasible and Non-dominated Objective Vector\n")
 
     popsize = len(pop1_ptr["ind"])
     nchrom = len(pop1_ptr["ind"][0]["xbin"])
     nfunc = len(pop1_ptr["ind"][0]["fitness"])
 
-    outputfile.writelines("\n\n---------------------------------------------------\n");
-    outputfile.writelines("Generation No.     ->%d\n" % (igen));
-    outputfile.writelines("------------------------------------------------------\n");
+    outputfile.writelines("\n\n---------------------------------------------------\n")
+    outputfile.writelines("Generation No.     ->%d\n" % (igen))
+    outputfile.writelines("------------------------------------------------------\n")
 
     outputfile.writelines(
         "OldPop:  variables (binary %d)  fitness (%d)  rank cublen || MatePop: variables  fitness rank cublen\n" % (
-        nchrom, nfunc));
+        nchrom, nfunc))
 
     i = 0
     while i < popsize:
-        outputfile.writelines("\n------------------------------------------------\n");
+        outputfile.writelines("\n------------------------------------------------\n")
 
-        ptr1_b = pop1_ptr['ind'][i]['xbin'];
-        ptr2_b = pop2_ptr['ind'][i]['xbin'];
+        ptr1_b = pop1_ptr['ind'][i]['xbin']
+        ptr2_b = pop2_ptr['ind'][i]['xbin']
 
-        fptr = pop1_ptr['ind'][i]['fitness'];
-        fptr1 = pop2_ptr['ind'][i]['fitness'];
+        fptr = pop1_ptr['ind'][i]['fitness']
+        fptr1 = pop2_ptr['ind'][i]['fitness']
 
-        rptr = pop1_ptr['ind'][i]['rank'];
-        rptr1 = pop2_ptr['ind'][i]['rank'];
+        rptr = pop1_ptr['ind'][i]['rank']
+        rptr1 = pop2_ptr['ind'][i]['rank']
 
         j = 0
         while j < nchrom:

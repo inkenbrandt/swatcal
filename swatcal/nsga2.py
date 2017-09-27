@@ -42,10 +42,12 @@ class nsga2:
             shutil.copy2(os.path.join(libpath, "ScriptsForSWATtxt", "nsga2_mid.sh"), SWATtxtinoutFolderDirectory)
             shutil.copy2(os.path.join(libpath, "ScriptsForSWATtxt", "swat2012_627"), SWATtxtinoutFolderDirectory)
             shutil.copy2(os.path.join(libpath, "ScriptsForSWATtxt", "Makefile"), SWATtxtinoutFolderDirectory)
+
         elif "win" in sys.platform.lower():
             print("Operating System is {0}".format(sys.platform))
             shutil.copy2(os.path.join(libpath, "ScriptsForSWATtxt", "nsga2_mid.cmd"), SWATtxtinoutFolderDirectory)
             shutil.copy2(os.path.join(libpath, "ScriptsForSWATtxt", "swat.exe"), SWATtxtinoutFolderDirectory)
+
         # goes with windows for now
         else:
             shutil.copy2(os.path.join(libpath, "ScriptsForSWATtxt", "nsga2_mid.cmd"), SWATtxtinoutFolderDirectory)
@@ -67,10 +69,8 @@ class nsga2:
         seed = float(lines[7].split()[1])  # random seed(between 0 and 1)
         M = int(lines[8].split()[1])  # Number of Latin Hypercube Sampling intervals
         FuncOpt = int(lines[9].split()[1])  # 1=E; 2=R^2; 3=E,log E; 4=E,R^2,log E; 5=E,PB
-        FuncOptAvr = int(
-            lines[10].split()[1])  # 0=Do not average; 1=Average Objective sites; 2=Average Objective Functions
-        ReadMFrmOut = int(lines[11].split()[
-                              1])  # 1= Read last population from output.out (use "1" when you want to re-start with same parameters defined in parameter file)
+        FuncOptAvr = int(lines[10].split()[1])  # 0=Do not average; 1=Average Objective sites; 2=Average Objective Functions
+        ReadMFrmOut = int(lines[11].split()[1])  # 1= Read last population from output.out (use "1" when you want to re-start with same parameters defined in parameter file)
         f.close()
 
         # Read 'nsga2_par.def'
@@ -170,13 +170,16 @@ class nsga2:
             f = open(self.SWATdir + "/NSGA2.OUT/output.out", "r")
             lines = f.readlines()
             prmtrno = int(lines[5].split(")")[0].split("binary")[1])  # Number of parameters (binary)
+
             if self.nchrom != prmtrno:
                 sys.exit("ERROR: parameter number is not equal to parameter numbers defined in output.out file")
+
             # Loop through lines
             i = 6
             LastGenPars = []
             gennum = 0
             previousgennum = 0
+
             while i < len(lines):
                 i += 2
                 # Deal with generation title part and get generation number
@@ -191,12 +194,11 @@ class nsga2:
                 if gennum > previousgennum:
                     previousgennum = gennum
                     LastGenPars = []
-                Parameters = [x for x in lines[i].split("\n")[0].split("|**|")[1].split(" ") if x != ""][
-                             :prmtrno]  # Get parameters on line i after |**| (mate population)
+                Parameters = [x for x in lines[i].split("\n")[0].split("|**|")[1].split(" ") if x != ""][:prmtrno]  # Get parameters on line i after |**| (mate population)
                 LastGenPars.append(Parameters)
             f.close()
-            if self.popsize != len(LastGenPars): sys.exit(
-                "ERROR: poulation size is not equal to population size in output.out file")
+            if self.popsize != len(LastGenPars):
+                sys.exit("ERROR: poulation size is not equal to population size in output.out file")
             # Write values in old_pop_ptr
             for i in range(self.popsize):
                 for j in range(self.nchrom):
@@ -288,7 +290,7 @@ def advance_random(oldrand):
 
 
 class random_:
-    # /* Get random off and running */
+
     def __init__(self, random_seed):  # Warmup_random(random_seed):
         oldrand = numpy.zeros(55, float)
         oldrand[54] = random_seed
@@ -298,15 +300,21 @@ class random_:
             ii = (21 * j1) % 54
             oldrand[ii] = new_random
             new_random = prev_random - new_random
-            if (new_random < 0.0): new_random = new_random + 1.0;
+            if new_random < 0.0:
+                new_random = new_random + 1.0
             prev_random = oldrand[ii]
         self.oldrand = advance_random(advance_random(advance_random(oldrand)))
         self.jrand = 0
 
     def randomperc(self):
-        # /* Fetch a single random number between 0.0 and 1.0 - Subtractive Method */
-        # /* See Knuth, D. (1969), v. 2 for details */
-        # /* name changed from random() to avoid library conflicts on some machines*/
+        """
+        Fetch a single random number between 0.0 and 1.0 - Subtractive Method
+        See Knuth, D. (1969), v. 2 for details
+        name changed from random() to avoid library conflicts on some machines
+
+        :return:
+        """
+
         self.jrand += 1
         if (self.jrand >= 55):
             self.jrand = 1

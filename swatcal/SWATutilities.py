@@ -226,7 +226,7 @@ def CalculateObjectiveFunctions(population, Outlet_Obsdata, FuncOpt, FuncOptAvr,
     for i in range(popsize):
         ParameterValues.append(population["ind"][i]["xbin"])  # /* problem variables */
 
-    # &&&& without pralel SWAT run &&&&&
+
     outlets = list(Outlet_Obsdata.keys())
     outlets.sort()
     for i in range(popsize):  # population loop
@@ -251,7 +251,7 @@ def CalculateObjectiveFunctions(population, Outlet_Obsdata, FuncOpt, FuncOptAvr,
         modelrchf = open(os.path.join(SWATdir, "model.out"), 'r')
         lines = modelrchf.readlines()
         Outlet_Modeldata = {}
-        k = 0;
+        k = 0
         Modeldata = []
         for outlet in outlets:
             nofdatapoints = len(Outlet_Obsdata[outlet])
