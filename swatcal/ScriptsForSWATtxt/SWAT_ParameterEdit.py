@@ -3,7 +3,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import os, glob, shutil
 import codecs
 
-DefaultDir = os.path.join(os.getcwd(), "Backup")
+DefaultDir = os.getcwd()
 modelin = os.path.join(os.getcwd(), "model.in")
 
 
@@ -22,7 +22,8 @@ def SWATparameterChange(TheFileDir, TheValue, IMET, TheLineNo, TheStartSpaceNo, 
 
     # get the original value
     if IMET == 2 or IMET == 3 or multiopt == "multi":
-        originalfile = DefaultDir + "/" + TheFileDir.split("/")[len(TheFileDir.split("/")) - 1]
+        originalfile = DefaultDir + "/" + os.path.basename(TheFileDir)
+        print(originalfile)
         File = codecs.open(originalfile, "r", encoding='utf-8')  # open the file
         lines = File.readlines()  # Read lines
         oLines = {}
