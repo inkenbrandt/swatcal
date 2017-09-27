@@ -88,7 +88,7 @@ def rankcon(population):
     maxrank1 = rnk
 
     # /*     Find Max Rank of the population    */
-    i = 0;
+    i = 0
     while i < popsize:
         rnk = population["ind"][i]["rank"]
         if (rnk > maxrank1): maxrank1 = rnk;
