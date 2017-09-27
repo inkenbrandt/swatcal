@@ -24,7 +24,7 @@ import copy, sys, numpy, os, random, shutil
 from . import nsga2utilities, SWATutilities
 import codecs
 
-class nsga2:
+class nsga2(object):
     def __init__(self, SWATtxtinoutFolderDirectory):
         """
         nsga2 calibration functions
