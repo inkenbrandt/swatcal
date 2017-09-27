@@ -266,7 +266,8 @@ class nsga2:
                                                       generationNo, self.SWATdir)
         nsga2utilities.decode(self.mate_pop_ptr, self.vlen, self.lim_b)
         nsga2utilities.report(self.old_pop_ptr, self.mate_pop_ptr, generationNo, self.ngener, self.SWATdir, self.ncross,
-                              self.nmut)  # Print Report: old_pop_ptr is old population and mate_pop_ptr is here the created old population for next generation
+                              self.nmut)
+        # Print Report: old_pop_ptr is old population and mate_pop_ptr is here the created old population for next generation
         self.new_pop_ptr = copy.deepcopy(self.mate_pop_ptr)
         self.old_pop_ptr = copy.deepcopy(self.new_pop_ptr)  # Parent Population
 
@@ -291,15 +292,15 @@ class random_:
     def __init__(self, random_seed):  # Warmup_random(random_seed):
         oldrand = numpy.zeros(55, float)
         oldrand[54] = random_seed
-        new_random = 0.000000001;
-        prev_random = random_seed;
+        new_random = 0.000000001
+        prev_random = random_seed
         for j1 in range(1, 55):
-            ii = (21 * j1) % 54;
-            oldrand[ii] = new_random;
-            new_random = prev_random - new_random;
+            ii = (21 * j1) % 54
+            oldrand[ii] = new_random
+            new_random = prev_random - new_random
             if (new_random < 0.0): new_random = new_random + 1.0;
-            prev_random = oldrand[ii];
-        self.oldrand = advance_random(advance_random(advance_random(oldrand)));
+            prev_random = oldrand[ii]
+        self.oldrand = advance_random(advance_random(advance_random(oldrand)))
         self.jrand = 0
 
     def randomperc(self):
@@ -308,6 +309,6 @@ class random_:
         # /* name changed from random() to avoid library conflicts on some machines*/
         self.jrand += 1
         if (self.jrand >= 55):
-            self.jrand = 1;
-            self.oldrand = advance_random(self.oldrand);
+            self.jrand = 1
+            self.oldrand = advance_random(self.oldrand)
         return self.oldrand[self.jrand]
