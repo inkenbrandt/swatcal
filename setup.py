@@ -40,7 +40,6 @@ setup(name='swatcal',
                     os.path.join('swatcal', 'ScriptsForSWATtxt', 'Makefile'),
                     os.path.join('swatcal', 'ScriptsForSWATtxt', 'swat2012_627'),
                     os.path.join('swatcal', 'ScriptsForSWATtxt', 'nsga2_mid.sh'),
-                    os.path.join('swatcal', 'ScriptsForSWATtxt', 'nsga2_mid.cmd'),
                     os.path.join('swatcal', 'ScriptsForSWATtxt', 'swat.exe'), ])],
       include_package_data=True
       )
